@@ -5,10 +5,12 @@
       {{ monthName }}
       <button @click="setMonth(1)">></button>
     </div>
-    <div class="absolute top-16 left-0 w-full h-full bg-white text-black">
+    <div class="background text-black">
       <ul class="flex flex-wrap">
         <li class="font-bold day" v-for="index in mounthDays" :key="index">
-          <button class="day">{{ index }}</button>
+          <button @click="openTasks(index)" class="day">
+            {{ index }}
+          </button>
         </li>
       </ul>
     </div>
@@ -16,6 +18,7 @@
 </template>
 
 <script>
+import router from '../router'
 export default {
   name: 'CalendarView',
   mounted() {
@@ -33,6 +36,9 @@ export default {
       this.date.setMonth(this.date.getMonth() + increment)
       this.monthName = this.date.toLocaleString('pt-BR', { month: 'long' }).toUpperCase()
       this.mounthDays = new Date(2024, this.date.getMonth() + 1, 0).getDate()
+    },
+    openTasks(day) {
+      router.push(`/tasks/${this.date.getFullYear()}-${this.date.getMonth() + 1}-${day}`)
     }
   }
 }
