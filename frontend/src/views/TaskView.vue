@@ -3,7 +3,7 @@
     <div class="top-bar">
       <button @click="returnToCalendar()"><</button>
       {{ date }}
-      <button @click="showNewTask = true">+</button>
+      <button @click="showNewTask = !showNewTask">{{ showNewTask ? 'x' : '+' }}</button>
     </div>
     <div class="background items-center justify-center flex flex-col text-black">
       <new-task v-if="showNewTask" />

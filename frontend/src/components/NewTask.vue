@@ -1,11 +1,29 @@
 <template>
-  <div class="text-center font-bold">
-    <h3>Nova Tarefa</h3>
-    <input class="task-input text-black" placeholder="Título" v-model="task.title" />
-    <input class="task-input text-black" placeholder="Descrição" v-model="task.description" />
-    <input class="task-input text-black" placeholder="Hora" v-model="task.date.time" />
-    <input class="task-input text-black" placeholder="Duração" v-model="task.duration" />
-    <button @click="$parent.addTask(task)">Salvar</button>
+  <div
+    class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-1 border-solid border-2 border-gray-900 rounded-lg bg-gray-900"
+  >
+    <h3 class="row-start-1 col-start-1 col-span-2">Nova Tarefa</h3>
+    <input
+      class="task-input text-black col-start-1 row-start-2"
+      placeholder="Título"
+      v-model="task.title"
+    />
+    <input
+      class="task-input text-black col-start-1 row-start-3"
+      placeholder="Descrição"
+      v-model="task.description"
+    />
+    <input
+      class="task-input text-black col-start-2 row-start-2"
+      placeholder="Hora"
+      v-model="task.date.time"
+    />
+    <input
+      class="task-input text-black col-start-2 row-start-3"
+      placeholder="Duração"
+      v-model="task.duration"
+    />
+    <button class="row-start-4 col-start-1 col-span-2" @click="saveTask">Salvar</button>
   </div>
 </template>
 
@@ -20,6 +38,12 @@ export default {
         date: { time: '' },
         duration: ''
       }
+    }
+  },
+  methods: {
+    saveTask() {
+      this.$parent.addTask(this.task)
+      this.$parent.showNewTask = false
     }
   }
 }
