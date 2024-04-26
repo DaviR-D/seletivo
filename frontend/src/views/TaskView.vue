@@ -3,29 +3,29 @@
     <div class="top-bar">
       <button @click="returnToCalendar()"><</button>
       {{ date }}
-      <button>+</button>
+      <button @click="showNewTask = true">+</button>
     </div>
-
     <div class="background items-center justify-center flex flex-col text-black">
-      <input class="task-input text-black" v-model="task" @keypress.enter="addTask()" />
       <task-item v-for="(task, index) in tasks" :key="task" :task="task" :index="index" />
     </div>
+    <new-task v-if="showNewTask" />
   </div>
 </template>
 
 <script>
 import { useRoute } from 'vue-router'
 import TaskItem from '@/components/TaskItem.vue'
+import NewTask from '@/components/NewTask.vue'
 import router from '../router'
 import moment from 'moment'
 export default {
-  components: { TaskItem },
+  components: { TaskItem, NewTask },
   mounted() {
     this.date = moment(this.route.params.date).format('DD/MM/YYYY')
   },
   data() {
     return {
-      task: '',
+      showNewTask: false,
       tasks: [
         {
           title: 'tarefa1',
@@ -46,9 +46,8 @@ export default {
     }
   },
   methods: {
-    addTask() {
-      this.tasks.push(this.task)
-      this.task = ''
+    addTask(task) {
+      this.tasks.push(task)
     },
     deleteTask(index) {
       this.tasks.splice(index, 1)
@@ -60,11 +59,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.task-input {
-  height: 5vh;
-  width: 30vh;
-  border: 5px solid #1a202c;
-  border-radius: 20px;
-}
-</style>
+<style scoped></style>
