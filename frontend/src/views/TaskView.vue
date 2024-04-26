@@ -6,9 +6,9 @@
       <button @click="showNewTask = true">+</button>
     </div>
     <div class="background items-center justify-center flex flex-col text-black">
+      <new-task v-if="showNewTask" />
       <task-item v-for="(task, index) in tasks" :key="task" :task="task" :index="index" />
     </div>
-    <new-task v-if="showNewTask" />
   </div>
 </template>
 
