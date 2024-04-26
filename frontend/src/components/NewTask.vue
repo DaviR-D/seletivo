@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-1 border-solid border-2 border-gray-900 rounded-lg bg-gray-900"
+    class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-1 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
   >
     <h3 class="row-start-1 col-start-1 col-span-2">Nova Tarefa</h3>
     <input
@@ -66,9 +66,6 @@ export default {
   left: auto;
   margin: auto;
   background-color: white;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 4px;
   z-index: 1;
 }
