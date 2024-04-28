@@ -1,17 +1,25 @@
 <template>
   <div class="task text-white mt-4 font-bold grid grid-cols-3 grid-rows-3 gap-4">
     <h1 class="col-end-1 row-start-1">{{ task.title }}</h1>
-    <span class="col-start-2 row-start-1">{{ task.date.time }}</span>
+    <span class="col-start-2 row-start-1">{{ task.time }}</span>
     <span class="col-span-4 row-start-2 row-span-3 overflow-y-auto">{{ task.description }}</span>
-    <button class="col-start-4 row-start-2" @click="$parent.deleteTask(index)">X</button>
+    <button class="col-start-4 row-start-2" @click="deleteTask">X</button>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'TaskItem',
   props: {
     task: { type: Object },
     index: { type: Number }
+  },
+  methods: {
+    deleteTask() {
+      axios.delete(`http://localhost:3000/tasks/${this.task.id}/`).then(() => {
+        this.$parent.deleteTask(this.index)
+      })
+    }
   }
 }
 </script>

@@ -16,7 +16,8 @@
     <input
       class="task-input text-black col-start-2 row-start-2"
       placeholder="Hora"
-      v-model="task.date.time"
+      type="time"
+      v-model="time"
     />
     <input
       class="task-input text-black col-start-2 row-start-3"
@@ -28,20 +29,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'NewTask',
   data() {
     return {
+      time: '',
       task: {
         title: '',
         description: '',
-        date: { time: '' },
-        duration: ''
+        date: '',
+        duration: '',
+        tag: 'tag'
       }
     }
   },
   methods: {
     saveTask() {
+      this.task.date = new Date()
+      const data = this.$parent.route.params.date.split('-')
+      this.task.date.setFullYear(parseInt(data[0]), parseInt(data[1]) - 1, parseInt(data[2]))
+      const horario = this.time.split(':')
+      this.task.date.setHours(horario[0])
+      this.task.date.setMinutes(horario[1])
+      axios.post('http://localhost:3000/tasks', this.task).then((response) => {
+        console.log(response)
+      })
       this.$parent.addTask(this.task)
       this.$parent.showNewTask = false
     }

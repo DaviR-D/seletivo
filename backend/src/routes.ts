@@ -1,23 +1,22 @@
-import { UserController } from "./controller/UserController"
+import { TaskController } from "./controller/TaskController";
 
-export const Routes = [{
+export const Routes = [
+  {
     method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-}, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-}, {
+    route: "/tasks",
+    controller: TaskController,
+    action: "all",
+  },
+  {
     method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-}, {
+    route: "/tasks",
+    controller: TaskController,
+    action: "save",
+  },
+  {
     method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-}]
+    route: "/tasks/:id",
+    controller: TaskController,
+    action: "remove",
+  },
+];
