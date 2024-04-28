@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import axios from 'axios'
 
 export default {
@@ -56,6 +57,7 @@ export default {
       axios.post('http://localhost:3000/tasks', this.task).then((response) => {
         console.log(response)
       })
+      this.task.time = moment(this.task.date).format('HH:mm')
       this.$parent.addTask(this.task)
       this.$parent.showNewTask = false
     }
