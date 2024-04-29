@@ -3,7 +3,9 @@
     <h1 class="col-end-1 row-start-1">{{ task.title }}</h1>
     <span class="col-start-2 row-start-1">{{ task.time }}</span>
     <span class="col-span-4 row-start-2 row-span-3 overflow-y-auto">{{ task.description }}</span>
-    <button class="col-start-4 row-start-2" @click="deleteTask">X</button>
+    <button class="col-start-4 row-start-2" @click="deleteTask">
+      <div class="delete-icon">X</div>
+    </button>
   </div>
 </template>
 <script>
@@ -32,5 +34,25 @@ export default {
   background-color: #1a202c;
   border-radius: 10px;
   padding: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.task:hover {
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  border: 5px solid transparent;
+  border-radius: 100%;
+  transition:
+    color 0.3s,
+    border-color 0.3s,
+    background-color 0.3s;
+}
+
+.delete-icon:hover {
+  color: #000;
+  border-color: #d84e4e;
+  background-color: #d84e4e;
 }
 </style>

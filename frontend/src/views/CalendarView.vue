@@ -7,9 +7,14 @@
     </div>
     <div class="background text-black">
       <ul class="flex flex-wrap">
-        <li class="font-bold day" v-for="index in mounthDays" :key="index">
+        <li
+          class="font-bold day"
+          v-for="index in mounthDays"
+          :key="index"
+          :class="{ today: isToday(index) }"
+        >
           <button @click="openTasks(index)" class="day">
-            {{ index }}
+            <div class="day-number font-bold">{{ index }}</div>
           </button>
         </li>
       </ul>
@@ -19,6 +24,7 @@
 
 <script>
 import router from '../router'
+import moment from 'moment'
 export default {
   name: 'CalendarView',
   mounted() {
@@ -39,6 +45,11 @@ export default {
     },
     openTasks(day) {
       router.push(`/tasks/${this.date.getFullYear()}-${this.date.getMonth() + 1}-${day}`)
+    },
+    isToday(day) {
+      let data = this.date
+      data.setDate(day)
+      return moment().isSame(data, 'day')
     }
   }
 }
@@ -46,14 +57,21 @@ export default {
 
 <style scoped>
 .day {
-  border: 1px solid #1a202c;
+  border: 2px solid #1a202c;
   height: 20vh;
   width: 20vh;
-  font-size: 8vw;
 }
 
-.day:hover {
-  transform: scale(1.1);
-  border: 0px;
+.day-number {
+  font-size: 8vw;
+  transition: transform 0.2s ease-in-out;
+}
+
+.day-number:hover {
+  transform: scale(1.2);
+}
+
+.today {
+  background-color: #add8e6;
 }
 </style>
