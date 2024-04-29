@@ -19,4 +19,10 @@ export const Routes = [
     controller: TaskController,
     action: "remove",
   },
+  {
+    method: "patch",
+    route: "/tasks/:id",
+    controller: TaskController,
+    action: "update",
+  },
 ];

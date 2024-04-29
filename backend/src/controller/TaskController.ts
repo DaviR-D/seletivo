@@ -36,4 +36,18 @@ export class TaskController {
 
     return "task has been removed";
   }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    const id = request.params.id;
+    const task = request.body;
+
+    await this.taskRepository
+      .createQueryBuilder()
+      .update(Task)
+      .set(task)
+      .where("id = :id", { id: id })
+      .execute();
+
+    return "Atualizado com sucesso!";
+  }
 }
