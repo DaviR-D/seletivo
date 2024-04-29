@@ -11,7 +11,9 @@
           class="font-bold day"
           v-for="index in mounthDays"
           :key="index"
-          :class="{ today: isToday(index) }"
+          :class="{
+            today: isToday(index)
+          }"
         >
           <button @click="openTasks(index)" class="day">
             <div class="day-number font-bold">{{ index }}</div>
@@ -33,6 +35,7 @@ export default {
   data() {
     return {
       date: new Date(),
+      today: moment().format('DD/MM/YY'),
       monthName: '',
       mounthDays: 0
     }
@@ -47,9 +50,10 @@ export default {
       router.push(`/tasks/${this.date.getFullYear()}-${this.date.getMonth() + 1}-${day}`)
     },
     isToday(day) {
-      let data = this.date
-      data.setDate(day)
-      return moment().isSame(data, 'day')
+      return this.today ==
+        moment(new Date(this.date.getFullYear(), this.date.getMonth(), day)).format('DD/MM/YY')
+        ? true
+        : false
     }
   }
 }
