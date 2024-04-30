@@ -6,7 +6,7 @@ export class TaskController {
   private taskRepository = AppDataSource.getRepository(Task);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.taskRepository.find();
+    return this.taskRepository.find({ order: { date: "ASC" } });
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
