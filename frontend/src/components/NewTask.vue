@@ -3,7 +3,7 @@
     class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
   >
     <h3 class="row-start-1 col-start-1 col-span-2">
-      {{ editingMode.activated ? 'Editar tarefa' : 'Nova Tarefa' }}
+      {{ editingMode ? 'Editar tarefa' : 'Nova Tarefa' }}
     </h3>
     <input
       class="task-input text-black col-start-1 row-start-2"
@@ -48,22 +48,19 @@ export default {
       })
     },
     editingMode: {
-      type: Object,
-      activated: Boolean,
-      default: () => ({
-        activated: false
-      })
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      time: '',
+      time: this.taskEdit.time,
       task: this.taskEdit
     }
   },
   methods: {
     saveTask() {
-      if (!this.editingMode.activated) this.create()
+      if (!this.editingMode) this.create()
       else this.update()
     },
     create() {
@@ -81,9 +78,11 @@ export default {
       this.$parent.showNewTask = false
     },
     update() {
+      this.task.date = new Date(this.task.date)
       const horario = this.time.split(':')
       this.task.date.setHours(horario[0])
       this.task.date.setMinutes(horario[1])
+      delete this.task.time
       axios.patch(`http://localhost:3000/tasks/${this.task.id}`, this.task).then((response) => {
         console.log(response)
       })

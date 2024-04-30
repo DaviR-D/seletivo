@@ -10,7 +10,7 @@
       <div class="edit-icon">✎</div>
     </button>
   </div>
-  <new-task v-if="showEditTask" :taskEdit="task" :editMode="true" />
+  <new-task v-if="showEditTask" :taskEdit="task" :editingMode="true" />
 </template>
 <script>
 import axios from 'axios'
