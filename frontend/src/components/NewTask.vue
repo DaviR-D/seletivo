@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
+    class="text-center text-white font-bold grid grid-cols-2 grid-rows-5 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
   >
     <h3 class="row-start-1 col-start-1 col-span-2">
       {{ editingMode ? 'Editar tarefa' : 'Nova Tarefa' }}
@@ -26,7 +26,12 @@
       placeholder="Duração"
       v-model="task.duration"
     />
-    <button class="row-start-4 col-start-1 col-span-2" @click="saveTask">Salvar</button>
+    <input
+      class="task-input text-black col-start-1 col-span-2 row-start-4"
+      placeholder="Categoria"
+      v-model="task.tag"
+    />
+    <button class="row-start-5 col-start-1 col-span-2" @click="saveTask">Salvar</button>
   </div>
 </template>
 
@@ -44,7 +49,7 @@ export default {
         description: '',
         date: '',
         duration: '',
-        tag: 'tag'
+        tag: ''
       })
     },
     editingMode: {
@@ -78,6 +83,7 @@ export default {
       this.$parent.showNewTask = false
     },
     update() {
+      console.log(this.task.time)
       this.task.date = new Date(this.task.date)
       const horario = this.time.split(':')
       this.task.date.setHours(horario[0])
