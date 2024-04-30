@@ -2,7 +2,9 @@
   <div
     class="text-center text-white font-bold grid grid-cols-2 grid-rows-4 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
   >
-    <h3 class="row-start-1 col-start-1 col-span-2">Nova Tarefa</h3>
+    <h3 class="row-start-1 col-start-1 col-span-2">
+      {{ editingMode.activated ? 'Editar tarefa' : 'Nova Tarefa' }}
+    </h3>
     <input
       class="task-input text-black col-start-1 row-start-2"
       placeholder="Título"
@@ -34,20 +36,37 @@ import axios from 'axios'
 
 export default {
   name: 'NewTask',
-  data() {
-    return {
-      time: '',
-      task: {
+  props: {
+    taskEdit: {
+      type: Object,
+      default: () => ({
         title: '',
         description: '',
         date: '',
         duration: '',
         tag: 'tag'
-      }
+      })
+    },
+    editingMode: {
+      type: Object,
+      activated: Boolean,
+      default: () => ({
+        activated: false
+      })
+    }
+  },
+  data() {
+    return {
+      time: '',
+      task: this.taskEdit
     }
   },
   methods: {
     saveTask() {
+      if (!this.editingMode.activated) this.create()
+      else this.update()
+    },
+    create() {
       this.task.date = new Date()
       const data = this.$parent.route.params.date.split('-')
       this.task.date.setFullYear(parseInt(data[0]), parseInt(data[1]) - 1, parseInt(data[2]))
@@ -60,6 +79,17 @@ export default {
       this.task.time = moment(this.task.date).format('HH:mm')
       this.$parent.addTask(this.task)
       this.$parent.showNewTask = false
+    },
+    update() {
+      const horario = this.time.split(':')
+      this.task.date.setHours(horario[0])
+      this.task.date.setMinutes(horario[1])
+      axios.patch(`http://localhost:3000/tasks/${this.task.id}`, this.task).then((response) => {
+        console.log(response)
+      })
+      this.task.time = moment(this.task.date).format('HH:mm')
+      this.$parent.task = this.task
+      this.$parent.showEditTask = false
     }
   }
 }

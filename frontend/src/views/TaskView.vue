@@ -6,8 +6,8 @@
       <button @click="showNewTask = !showNewTask">{{ showNewTask ? 'x' : '+' }}</button>
     </div>
     <div class="background items-center justify-center flex flex-col text-black">
-      <new-task v-if="showNewTask" />
-      <task-item v-for="(task, index) in tasks" :key="task" :task="task" :index="index" />
+      <new-task v-if="showNewTask" :props="editTask" />
+      <task-item v-for="(task, index) in tasks" :key="task" :taskprop="task" :index="index" />
     </div>
   </div>
 </template>
@@ -29,21 +29,7 @@ export default {
   data() {
     return {
       showNewTask: false,
-      tasks: [
-        // {
-        //   title: 'tarefa1',
-        //   description: 'Realizar a primeira tarefa no prazo adequado',
-        //   date: { time: '17:00' },
-        //   duration: '01:30'
-        // },
-        // {
-        //   title: 'Segunda Tarefa',
-        //   description:
-        //     'Testando a capacidade do componente tarefa de manter o design adequado mesmo com descrições grandes',
-        //   date: { time: '17:00' },
-        //   duration: '01:30'
-        // }
-      ],
+      tasks: [],
       route: useRoute(),
       date: ''
     }
