@@ -9,7 +9,14 @@
         v-model="search"
       />
       {{ monthName }}
-      <span></span>
+      <select class="task-search text-black text-xl text-center" v-model="tagFilter">
+        <option value="" disabled selected hidden>Categoria</option>
+        <option value="">Todas</option>
+        <option value="Casa">Casa</option>
+        <option value="Estudo">Estudo</option>
+        <option value="Trabalho">Trabalho</option>
+        <option value="Lazer">Lazer</option>
+      </select>
       <button @click="setMonth(1)">{{ '>' }}</button>
     </div>
     <div class="text-black">
@@ -51,7 +58,8 @@ export default {
       monthName: '',
       mounthDays: 0,
       tasks: [],
-      search: ''
+      search: '',
+      tagFilter: ''
     }
   },
   methods: {
@@ -80,7 +88,8 @@ export default {
         .filter((task) => {
           return (
             moment(task.date).format('MM') === moment(this.date).format('MM') &&
-            task.title.toUpperCase().includes(this.search.toUpperCase())
+            task.title.toUpperCase().includes(this.search.toUpperCase()) &&
+            task.tag.includes(this.tagFilter)
           )
         })
         .map((task) => {
