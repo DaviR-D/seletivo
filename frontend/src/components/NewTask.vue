@@ -23,14 +23,18 @@
     />
     <input
       class="task-input text-black col-start-2 row-start-3"
-      placeholder="Duração"
+      placeholder="Duração (minutos)"
       v-model="task.duration"
     />
-    <input
-      class="task-input text-black col-start-1 col-span-2 row-start-4"
-      placeholder="Categoria"
-      v-model="task.tag"
-    />
+
+    <select class="task-input text-black col-start-1 col-span-2 row-start-4" v-model="task.tag">
+      <option value="" disabled selected hidden>Categoria</option>
+      <option value="Casa">Casa</option>
+      <option value="Estudo">Estudo</option>
+      <option value="Trabalho">Trabalho</option>
+      <option value="Lazer">Lazer</option>
+    </select>
+
     <button class="row-start-5 col-start-1 col-span-2" @click="saveTask">Salvar</button>
   </div>
 </template>

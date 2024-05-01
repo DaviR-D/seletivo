@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top-bar">
-      <button @click="returnToCalendar()"><</button>
+      <button @click="returnToCalendar()">{{ '<' }}</button>
       {{ date }}
       <button @click="showNewTask = !showNewTask">{{ showNewTask ? 'x' : '+' }}</button>
     </div>
