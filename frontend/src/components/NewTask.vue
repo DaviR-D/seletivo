@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-center text-white font-bold grid grid-cols-2 grid-rows-5 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 absolute backdrop-blur-xl"
+    class="window text-center text-white font-bold grid grid-cols-2 grid-rows-5 gap-4 border-solid border-2 border-gray-900/85 bg-gray-900/85 rounded-lg shadow-lg shadow-black z-50 backdrop-blur-xl"
   >
     <h3 class="row-start-1 col-start-1 col-span-2">
       {{ editingMode ? 'Editar tarefa' : 'Nova Tarefa' }}
@@ -117,5 +117,10 @@ export default {
   border: 5px solid #1a202c;
   border-radius: 20px;
   text-align: center;
+}
+.window {
+  position: fixed;
+  top: 35%;
+  left: 35%;
 }
 </style>
