@@ -1,7 +1,7 @@
 <template>
   <div class="task text-white mt-4 font-bold grid grid-cols-3 grid-rows-3 gap-4">
     <h1 class="col-end-1 row-start-1">{{ `${task.title} (${task.tag})` }}</h1>
-    <span class="col-start-2 row-start-1">{{ `${task.time} - ${calculateEndTime()}` }}</span>
+    <span class="col-start-2 row-start-1">{{ task.showDate ? showDate() : showTime() }}</span>
     <span class="col-span-4 row-start-2 row-span-3 overflow-y-auto">{{ task.description }}</span>
     <button class="col-start-4 row-start-1" @click="deleteTask">
       <div class="delete-icon">X</div>
@@ -40,6 +40,12 @@ export default {
       return (this.endTime = moment(this.task.time, 'HH:mm')
         .add(this.task.duration, 'minutes')
         .format('HH:mm'))
+    },
+    showDate() {
+      return moment(this.task.date).format('DD/MM')
+    },
+    showTime() {
+      return `${this.task.time} - ${this.calculateEndTime()}`
     }
   }
 }

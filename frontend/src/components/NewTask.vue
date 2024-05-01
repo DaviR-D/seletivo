@@ -92,11 +92,17 @@ export default {
       const horario = this.time.split(':')
       this.task.date.setHours(horario[0])
       this.task.date.setMinutes(horario[1])
-      delete this.task.time
-      axios.patch(`http://localhost:3000/tasks/${this.task.id}`, this.task).then((response) => {
-        console.log(response)
-      })
-      this.task.time = moment(this.task.date).format('HH:mm')
+      axios
+        .patch(`http://localhost:3000/tasks/${this.task.id}`, {
+          title: this.task.title,
+          description: this.task.description,
+          date: this.task.date,
+          duration: this.task.duration,
+          tag: this.task.tag
+        })
+        .then((response) => {
+          console.log(response)
+        })
       this.$parent.task = this.task
       this.$parent.showEditTask = false
     }
@@ -111,18 +117,5 @@ export default {
   border: 5px solid #1a202c;
   border-radius: 20px;
   text-align: center;
-}
-
-.window {
-  width: 50%;
-  height: 40%;
-  text-align: center;
-  position: absolute;
-  top: auto;
-  left: auto;
-  margin: auto;
-  background-color: white;
-  border-radius: 4px;
-  z-index: 1;
 }
 </style>
