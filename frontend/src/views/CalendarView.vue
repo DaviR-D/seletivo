@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="top-bar">
-      <button @click="setMonth(-1)"><</button>
+      <button @click="setMonth(-1)">{{ '<' }}</button>
       {{ monthName }}
-      <button @click="setMonth(1)">></button>
+      <button @click="setMonth(1)">{{ '>' }}</button>
     </div>
     <div class="background text-black">
       <ul class="flex flex-wrap">
