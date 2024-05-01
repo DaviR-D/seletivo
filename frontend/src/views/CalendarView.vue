@@ -63,26 +63,31 @@ export default {
     }
   },
   methods: {
+    //Muda o mês exibido de acordo com o incremento
     setMonth(increment) {
       this.date.setMonth(this.date.getMonth() + increment)
       this.monthName = this.date.toLocaleString('pt-BR', { month: 'long' }).toUpperCase()
       this.mounthDays = new Date(2024, this.date.getMonth() + 1, 0).getDate()
       this.filterTasks()
     },
+    //Abre a vizualização por dia
     openTasks(day) {
       router.push(`/tasks/${this.date.getFullYear()}-${this.date.getMonth() + 1}-${day}`)
     },
+    //Destaca dia atual no calendário
     isToday(day) {
       return this.today ==
         moment(new Date(this.date.getFullYear(), this.date.getMonth(), day)).format('DD/MM/YY')
         ? true
         : false
     },
+    //Carrega todas as tarefas do backend
     getTasks() {
       axios.get('http://localhost:3000/tasks').then((response) => {
         this.tasks = response.data
       })
     },
+    //Filtra as tarefas exibidas de acordo com mês, título buscado e categoria selecionada
     filterTasks() {
       return this.tasks
         .filter((task) => {

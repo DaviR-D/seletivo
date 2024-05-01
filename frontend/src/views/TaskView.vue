@@ -41,6 +41,7 @@ export default {
     returnToCalendar() {
       router.push('/')
     },
+    //Recupera as tarefas e filtra pelo dia
     getTasks() {
       axios.get('http://localhost:3000/tasks').then((response) => {
         response.data.forEach((task) => {

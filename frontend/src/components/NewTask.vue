@@ -46,6 +46,7 @@ import axios from 'axios'
 export default {
   name: 'NewTask',
   props: {
+    //Recebe a tarefa a ser editada e no caso de criação de uma nova define uma tarefa vazia
     taskEdit: {
       type: Object,
       default: () => ({
@@ -56,6 +57,7 @@ export default {
         tag: ''
       })
     },
+    //Define se será criada uma nova tarefa ou editada uma já existente
     editingMode: {
       type: Boolean,
       default: false
@@ -68,22 +70,34 @@ export default {
     }
   },
   methods: {
+    //Checa se será criada ou atualizada uma tarefa e a direciona para o método correspondente
     saveTask() {
       if (!this.editingMode) this.create()
       else this.update()
     },
     create() {
       this.task.date = new Date()
+      //Define a data a partir da string recebida nos parâmetros da rota
       const data = this.$parent.route.params.date.split('-')
       this.task.date.setFullYear(parseInt(data[0]), parseInt(data[1]) - 1, parseInt(data[2]))
+
+      //Define a hora a partir da string recebida no input time
       const horario = this.time.split(':')
       this.task.date.setHours(horario[0])
       this.task.date.setMinutes(horario[1])
+
+      //Salva tarefa no banco de dados
       axios.post('http://localhost:3000/tasks', this.task).then((response) => {
         console.log(response)
       })
+
+      //Formata o horário a ser exibido
       this.task.time = moment(this.task.date).format('HH:mm')
+
+      //Adiciona a nova tarefa na lista exibida
       this.$parent.addTask(this.task)
+
+      //Fecha essa janela
       this.$parent.showNewTask = false
     },
     update() {
