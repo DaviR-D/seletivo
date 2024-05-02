@@ -1,5 +1,11 @@
 # Calendário de Tarefas
 
+# Tecnologias usadas
+
+**Frontend**: Vue.js
+
+**Backend**: Express.js, TypeORM, PostgreSQL e Docker
+
 # Funcionalidades
 
 1. **Visualizar Tarefas por Dia**: Ver todas as tarefas agendadas para um dia específico.
